@@ -381,8 +381,11 @@ const renderWeather = (temperatureArr, weatherValArr, windSpeedValArr, hoursFrom
     const weatherTarget = document.getElementById('weather');
     const windTarget = document.getElementById('wind');
     const temperatureTarget = document.getElementById('temperature');
+    weatherTarget.innerHTML = "";
+    windTarget.innerHTML = "";
+    temperatureTarget.innerHTML = "";
     weatherTarget.innerText = weatherValArr[hoursFromNow];
-    windTarget.innerText = `${windSpeedValArr[hoursFromNow] * 10} m/s`;
+    windTarget.innerText = `${windSpeedValArr[hoursFromNow]} m/s`;
     temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
 };
 
