@@ -1,0 +1,309 @@
+const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 4},
+    {name: "Albania", code2: "AL", code3: "ALB", codeNumber: 8},
+    {name: "Algeria", code2: "DZ", code3: "DZA", codeNumber: 12},
+    {name: "American Samoa", code2: "AS", code3: "ASM", codeNumber: 16},
+    {name: "Andorra", code2: "AD", code3: "AND", codeNumber: 20},
+    {name: "Angola", code2: "AO", code3: "AGO", codeNumber: 24},
+    {name: "Anguilla", code2: "AI", code3: "AIA", codeNumber: 660},
+    {name: "Antarctica", code2: "AQ", code3: "ATA", codeNumber: 10},
+    {name: "Antigua and Barbuda", code2: "AG", code3: "ATG", codeNumber: 28},
+    {name: "Argentina", code2: "AR", code3: "ARG", codeNumber: 32},
+    {name: "Armenia", code2: "AM", code3: "ARM", codeNumber: 51},
+    {name: "Aruba", code2: "AW", code3: "ABW", codeNumber: 533},
+    {name: "Australia", code2: "AU", code3: "AUS", codeNumber: 36},
+    {name: "Austria", code2: "AT", code3: "AUT", codeNumber: 40},
+    {name: "Azerbaijan", code2: "AZ", code3: "AZE", codeNumber: 31},
+    {name: "Bahamas (the)", code2: "BS", code3: "BHS", codeNumber: 44},
+    {name: "Bahrain", code2: "BH", code3: "BHR", codeNumber: 48},
+    {name: "Bangladesh", code2: "BD", code3: "BGD", codeNumber: 50},
+    {name: "Barbados", code2: "BB", code3: "BRB", codeNumber: 52},
+    {name: "Belarus", code2: "BY", code3: "BLR", codeNumber: 112},
+    {name: "Belgium", code2: "BE", code3: "BEL", codeNumber: 56},
+    {name: "Belize", code2: "BZ", code3: "BLZ", codeNumber: 84},
+    {name: "Benin", code2: "BJ", code3: "BEN", codeNumber: 204},
+    {name: "Bermuda", code2: "BM", code3: "BMU", codeNumber: 60},
+    {name: "Bhutan", code2: "BT", code3: "BTN", codeNumber: 64},
+    {name: "Bolivia (Plurinational State of)", code2: "BO", code3: "BOL", codeNumber: 68},
+    {name: "Bonaire, Sint Eustatius and Saba", code2: "BQ", code3: "BES", codeNumber: 535},
+    {name: "Bosnia and Herzegovina", code2: "BA", code3: "BIH", codeNumber: 70},
+    {name: "Botswana", code2: "BW", code3: "BWA", codeNumber: 72},
+    {name: "Bouvet Island", code2: "BV", code3: "BVT", codeNumber: 74},
+    {name: "Brazil", code2: "BR", code3: "BRA", codeNumber: 76},
+    {name: "British Indian Ocean Territory (the)", code2: "IO", code3: "IOT", codeNumber: 86},
+    {name: "Brunei Darussalam", code2: "BN", code3: "BRN", codeNumber: 96},
+    {name: "Bulgaria", code2: "BG", code3: "BGR", codeNumber: 100},
+    {name: "Burkina Faso", code2: "BF", code3: "BFA", codeNumber: 854},
+    {name: "Burundi", code2: "BI", code3: "BDI", codeNumber: 108},
+    {name: "Cabo Verde", code2: "CV", code3: "CPV", codeNumber: 132},
+    {name: "Cambodia", code2: "KH", code3: "KHM", codeNumber: 116},
+    {name: "Cameroon", code2: "CM", code3: "CMR", codeNumber: 120},
+    {name: "Canada", code2: "CA", code3: "CAN", codeNumber: 124},
+    {name: "Cayman Islands (the)", code2: "KY", code3: "CYM", codeNumber: 136},
+    {name: "Central African Republic (the)", code2: "CF", code3: "CAF", codeNumber: 140},
+    {name: "Chad", code2: "TD", code3: "TCD", codeNumber: 148},
+    {name: "Chile", code2: "CL", code3: "CHL", codeNumber: 152},
+    {name: "China", code2: "CN", code3: "CHN", codeNumber: 156},
+    {name: "Christmas Island", code2: "CX", code3: "CXR", codeNumber: 162},
+    {name: "Cocos (Keeling) Islands (the)", code2: "CC", code3: "CCK", codeNumber: 166},
+    {name: "Colombia", code2: "CO", code3: "COL", codeNumber: 170},
+    {name: "Comoros (the)", code2: "KM", code3: "COM", codeNumber: 174},
+    {name: "Congo (the Democratic Republic of the)", code2: "CD", code3: "COD", codeNumber: 180},
+    {name: "Congo (the)", code2: "CG", code3: "COG", codeNumber: 178},
+    {name: "Cook Islands (the)", code2: "CK", code3: "COK", codeNumber: 184},
+    {name: "Costa Rica", code2: "CR", code3: "CRI", codeNumber: 188},
+    {name: "Croatia", code2: "HR", code3: "HRV", codeNumber: 191},
+    {name: "Cuba", code2: "CU", code3: "CUB", codeNumber: 192},
+    {name: "Curaçao", code2: "CW", code3: "CUW", codeNumber: 531},
+    {name: "Cyprus", code2: "CY", code3: "CYP", codeNumber: 196},
+    {name: "Czechia", code2: "CZ", code3: "CZE", codeNumber: 203},
+    {name: "Côte d'Ivoire", code2: "CI", code3: "CIV", codeNumber: 384},
+    {name: "Denmark", code2: "DK", code3: "DNK", codeNumber: 208},
+    {name: "Djibouti", code2: "DJ", code3: "DJI", codeNumber: 262},
+    {name: "Dominica", code2: "DM", code3: "DMA", codeNumber: 212},
+    {name: "Dominican Republic (the)", code2: "DO", code3: "DOM", codeNumber: 214},
+    {name: "Ecuador", code2: "EC", code3: "ECU", codeNumber: 218},
+    {name: "Egypt", code2: "EG", code3: "EGY", codeNumber: 818},
+    {name: "El Salvador", code2: "SV", code3: "SLV", codeNumber: 222},
+    {name: "Equatorial Guinea", code2: "GQ", code3: "GNQ", codeNumber: 226},
+    {name: "Eritrea", code2: "ER", code3: "ERI", codeNumber: 232},
+    {name: "Estonia", code2: "EE", code3: "EST", codeNumber: 233},
+    {name: "Eswatini", code2: "SZ", code3: "SWZ", codeNumber: 748},
+    {name: "Ethiopia", code2: "ET", code3: "ETH", codeNumber: 231},
+    {name: "Falkland Islands (the) [Malvinas]", code2: "FK", code3: "FLK", codeNumber: 238},
+    {name: "Faroe Islands (the)", code2: "FO", code3: "FRO", codeNumber: 234},
+    {name: "Fiji", code2: "FJ", code3: "FJI", codeNumber: 242},
+    {name: "Finland", code2: "FI", code3: "FIN", codeNumber: 246},
+    {name: "France", code2: "FR", code3: "FRA", codeNumber: 250},
+    {name: "French Guiana", code2: "GF", code3: "GUF", codeNumber: 254},
+    {name: "French Polynesia", code2: "PF", code3: "PYF", codeNumber: 258},
+    {name: "French Southern Territories (the)", code2: "TF", code3: "ATF", codeNumber: 260},
+    {name: "Gabon", code2: "GA", code3: "GAB", codeNumber: 266},
+    {name: "Gambia (the)", code2: "GM", code3: "GMB", codeNumber: 270},
+    {name: "Georgia", code2: "GE", code3: "GEO", codeNumber: 268},
+    {name: "Germany", code2: "DE", code3: "DEU", codeNumber: 276},
+    {name: "Ghana", code2: "GH", code3: "GHA", codeNumber: 288},
+    {name: "Gibraltar", code2: "GI", code3: "GIB", codeNumber: 292},
+    {name: "Greece", code2: "GR", code3: "GRC", codeNumber: 300},
+    {name: "Greenland", code2: "GL", code3: "GRL", codeNumber: 304},
+    {name: "Grenada", code2: "GD", code3: "GRD", codeNumber: 308},
+    {name: "Guadeloupe", code2: "GP", code3: "GLP", codeNumber: 312},
+    {name: "Guam", code2: "GU", code3: "GUM", codeNumber: 316},
+    {name: "Guatemala", code2: "GT", code3: "GTM", codeNumber: 320},
+    {name: "Guernsey", code2: "GG", code3: "GGY", codeNumber: 831},
+    {name: "Guinea", code2: "GN", code3: "GIN", codeNumber: 324},
+    {name: "Guinea-Bissau", code2: "GW", code3: "GNB", codeNumber: 624},
+    {name: "Guyana", code2: "GY", code3: "GUY", codeNumber: 328},
+    {name: "Haiti", code2: "HT", code3: "HTI", codeNumber: 332},
+    {name: "Heard Island and McDonald Islands", code2: "HM", code3: "HMD", codeNumber: 334},
+    {name: "Holy See (the)", code2: "VA", code3: "VAT", codeNumber: 336},
+    {name: "Honduras", code2: "HN", code3: "HND", codeNumber: 340},
+    {name: "Hong Kong", code2: "HK", code3: "HKG", codeNumber: 344},
+    {name: "Hungary", code2: "HU", code3: "HUN", codeNumber: 348},
+    {name: "Iceland", code2: "IS", code3: "ISL", codeNumber: 352},
+    {name: "India", code2: "IN", code3: "IND", codeNumber: 356},
+    {name: "Indonesia", code2: "ID", code3: "IDN", codeNumber: 360},
+    {name: "Iran (Islamic Republic of)", code2: "IR", code3: "IRN", codeNumber: 364},
+    {name: "Iraq", code2: "IQ", code3: "IRQ", codeNumber: 368},
+    {name: "Ireland", code2: "IE", code3: "IRL", codeNumber: 372},
+    {name: "Isle of Man", code2: "IM", code3: "IMN", codeNumber: 833},
+    {name: "Israel", code2: "IL", code3: "ISR", codeNumber: 376},
+    {name: "Italy", code2: "IT", code3: "ITA", codeNumber: 380},
+    {name: "Jamaica", code2: "JM", code3: "JAM", codeNumber: 388},
+    {name: "Japan", code2: "JP", code3: "JPN", codeNumber: 392},
+    {name: "Jersey", code2: "JE", code3: "JEY", codeNumber: 832},
+    {name: "Jordan", code2: "JO", code3: "JOR", codeNumber: 400},
+    {name: "Kazakhstan", code2: "KZ", code3: "KAZ", codeNumber: 398},
+    {name: "Kenya", code2: "KE", code3: "KEN", codeNumber: 404},
+    {name: "Kiribati", code2: "KI", code3: "KIR", codeNumber: 296},
+    {name: "Korea (the Democratic People's Republic of)", code2: "KP", code3: "PRK", codeNumber: 408},
+    {name: "Korea (the Republic of)", code2: "KR", code3: "KOR", codeNumber: 410},
+    {name: "Kuwait", code2: "KW", code3: "KWT", codeNumber: 414},
+    {name: "Kyrgyzstan", code2: "KG", code3: "KGZ", codeNumber: 417},
+    {name: "Lao People's Democratic Republic (the)", code2: "LA", code3: "LAO", codeNumber: 418},
+    {name: "Latvia", code2: "LV", code3: "LVA", codeNumber: 428},
+    {name: "Lebanon", code2: "LB", code3: "LBN", codeNumber: 422},
+    {name: "Lesotho", code2: "LS", code3: "LSO", codeNumber: 426},
+    {name: "Liberia", code2: "LR", code3: "LBR", codeNumber: 430},
+    {name: "Libya", code2: "LY", code3: "LBY", codeNumber: 434},
+    {name: "Liechtenstein", code2: "LI", code3: "LIE", codeNumber: 438},
+    {name: "Lithuania", code2: "LT", code3: "LTU", codeNumber: 440},
+    {name: "Luxembourg", code2: "LU", code3: "LUX", codeNumber: 442},
+    {name: "Macao", code2: "MO", code3: "MAC", codeNumber: 446},
+    {name: "Madagascar", code2: "MG", code3: "MDG", codeNumber: 450},
+    {name: "Malawi", code2: "MW", code3: "MWI", codeNumber: 454},
+    {name: "Malaysia", code2: "MY", code3: "MYS", codeNumber: 458},
+    {name: "Maldives", code2: "MV", code3: "MDV", codeNumber: 462},
+    {name: "Mali", code2: "ML", code3: "MLI", codeNumber: 466},
+    {name: "Malta", code2: "MT", code3: "MLT", codeNumber: 470},
+    {name: "Marshall Islands (the)", code2: "MH", code3: "MHL", codeNumber: 584},
+    {name: "Martinique", code2: "MQ", code3: "MTQ", codeNumber: 474},
+    {name: "Mauritania", code2: "MR", code3: "MRT", codeNumber: 478},
+    {name: "Mauritius", code2: "MU", code3: "MUS", codeNumber: 480},
+    {name: "Mayotte", code2: "YT", code3: "MYT", codeNumber: 175},
+    {name: "Mexico", code2: "MX", code3: "MEX", codeNumber: 484},
+    {name: "Micronesia (Federated States of)", code2: "FM", code3: "FSM", codeNumber: 583},
+    {name: "Moldova (the Republic of)", code2: "MD", code3: "MDA", codeNumber: 498},
+    {name: "Monaco", code2: "MC", code3: "MCO", codeNumber: 492},
+    {name: "Mongolia", code2: "MN", code3: "MNG", codeNumber: 496},
+    {name: "Montenegro", code2: "ME", code3: "MNE", codeNumber: 499},
+    {name: "Montserrat", code2: "MS", code3: "MSR", codeNumber: 500},
+    {name: "Morocco", code2: "MA", code3: "MAR", codeNumber: 504},
+    {name: "Mozambique", code2: "MZ", code3: "MOZ", codeNumber: 508},
+    {name: "Myanmar", code2: "MM", code3: "MMR", codeNumber: 104},
+    {name: "Namibia", code2: "NA", code3: "NAM", codeNumber: 516},
+    {name: "Nauru", code2: "NR", code3: "NRU", codeNumber: 520},
+    {name: "Nepal", code2: "NP", code3: "NPL", codeNumber: 524},
+    {name: "Netherlands (the)", code2: "NL", code3: "NLD", codeNumber: 528},
+    {name: "New Caledonia", code2: "NC", code3: "NCL", codeNumber: 540},
+    {name: "New Zealand", code2: "NZ", code3: "NZL", codeNumber: 554},
+    {name: "Nicaragua", code2: "NI", code3: "NIC", codeNumber: 558},
+    {name: "Niger (the)", code2: "NE", code3: "NER", codeNumber: 562},
+    {name: "Nigeria", code2: "NG", code3: "NGA", codeNumber: 566},
+    {name: "Niue", code2: "NU", code3: "NIU", codeNumber: 570},
+    {name: "Norfolk Island", code2: "NF", code3: "NFK", codeNumber: 574},
+    {name: "Northern Mariana Islands (the)", code2: "MP", code3: "MNP", codeNumber: 580},
+    {name: "Norway", code2: "NO", code3: "NOR", codeNumber: 578},
+    {name: "Oman", code2: "OM", code3: "OMN", codeNumber: 512},
+    {name: "Pakistan", code2: "PK", code3: "PAK", codeNumber: 586},
+    {name: "Palau", code2: "PW", code3: "PLW", codeNumber: 585},
+    {name: "Palestine, State of", code2: "PS", code3: "PSE", codeNumber: 275},
+    {name: "Panama", code2: "PA", code3: "PAN", codeNumber: 591},
+    {name: "Papua New Guinea", code2: "PG", code3: "PNG", codeNumber: 598},
+    {name: "Paraguay", code2: "PY", code3: "PRY", codeNumber: 600},
+    {name: "Peru", code2: "PE", code3: "PER", codeNumber: 604},
+    {name: "Philippines (the)", code2: "PH", code3: "PHL", codeNumber: 608},
+    {name: "Pitcairn", code2: "PN", code3: "PCN", codeNumber: 612},
+    {name: "Poland", code2: "PL", code3: "POL", codeNumber: 616},
+    {name: "Portugal", code2: "PT", code3: "PRT", codeNumber: 620},
+    {name: "Puerto Rico", code2: "PR", code3: "PRI", codeNumber: 630},
+    {name: "Qatar", code2: "QA", code3: "QAT", codeNumber: 634},
+    {name: "Republic of North Macedonia", code2: "MK", code3: "MKD", codeNumber: 807},
+    {name: "Romania", code2: "RO", code3: "ROU", codeNumber: 642},
+    {name: "Russian Federation (the)", code2: "RU", code3: "RUS", codeNumber: 643},
+    {name: "Rwanda", code2: "RW", code3: "RWA", codeNumber: 646},
+    {name: "Réunion", code2: "RE", code3: "REU", codeNumber: 638},
+    {name: "Saint Barthélemy", code2: "BL", code3: "BLM", codeNumber: 652},
+    {name: "Saint Helena, Ascension and Tristan da Cunha", code2: "SH", code3: "SHN", codeNumber: 654},
+    {name: "Saint Kitts and Nevis", code2: "KN", code3: "KNA", codeNumber: 659},
+    {name: "Saint Lucia", code2: "LC", code3: "LCA", codeNumber: 662},
+    {name: "Saint Martin (French part)", code2: "MF", code3: "MAF", codeNumber: 663},
+    {name: "Saint Pierre and Miquelon", code2: "PM", code3: "SPM", codeNumber: 666},
+    {name: "Saint Vincent and the Grenadines", code2: "VC", code3: "VCT", codeNumber: 670},
+    {name: "Samoa", code2: "WS", code3: "WSM", codeNumber: 882},
+    {name: "San Marino", code2: "SM", code3: "SMR", codeNumber: 674},
+    {name: "Sao Tome and Principe", code2: "ST", code3: "STP", codeNumber: 678},
+    {name: "Saudi Arabia", code2: "SA", code3: "SAU", codeNumber: 682},
+    {name: "Senegal", code2: "SN", code3: "SEN", codeNumber: 686},
+    {name: "Serbia", code2: "RS", code3: "SRB", codeNumber: 688},
+    {name: "Seychelles", code2: "SC", code3: "SYC", codeNumber: 690},
+    {name: "Sierra Leone", code2: "SL", code3: "SLE", codeNumber: 694},
+    {name: "Singapore", code2: "SG", code3: "SGP", codeNumber: 702},
+    {name: "Sint Maarten (Dutch part)", code2: "SX", code3: "SXM", codeNumber: 534},
+    {name: "Slovakia", code2: "SK", code3: "SVK", codeNumber: 703},
+    {name: "Slovenia", code2: "SI", code3: "SVN", codeNumber: 705},
+    {name: "Solomon Islands", code2: "SB", code3: "SLB", codeNumber: 90},
+    {name: "Somalia", code2: "SO", code3: "SOM", codeNumber: 706},
+    {name: "South Africa", code2: "ZA", code3: "ZAF", codeNumber: 710},
+    {name: "South Georgia and the South Sandwich Islands", code2: "GS", code3: "SGS", codeNumber: 239},
+    {name: "South Sudan", code2: "SS", code3: "SSD", codeNumber: 728},
+    {name: "Spain", code2: "ES", code3: "ESP", codeNumber: 724},
+    {name: "Sri Lanka", code2: "LK", code3: "LKA", codeNumber: 144},
+    {name: "Sudan (the)", code2: "SD", code3: "SDN", codeNumber: 729},
+    {name: "Suriname", code2: "SR", code3: "SUR", codeNumber: 740},
+    {name: "Svalbard and Jan Mayen", code2: "SJ", code3: "SJM", codeNumber: 744},
+    {name: "Sweden", code2: "SE", code3: "SWE", codeNumber: 752},
+    {name: "Switzerland", code2: "CH", code3: "CHE", codeNumber: 756},
+    {name: "Syrian Arab Republic", code2: "SY", code3: "SYR", codeNumber: 760},
+    {name: "Taiwan (Province of China)", code2: "TW", code3: "TWN", codeNumber: 158},
+    {name: "Tajikistan", code2: "TJ", code3: "TJK", codeNumber: 762},
+    {name: "Tanzania, United Republic of", code2: "TZ", code3: "TZA", codeNumber: 834},
+    {name: "Thailand", code2: "TH", code3: "THA", codeNumber: 764},
+    {name: "Timor-Leste", code2: "TL", code3: "TLS", codeNumber: 626},
+    {name: "Togo", code2: "TG", code3: "TGO", codeNumber: 768},
+    {name: "Tokelau", code2: "TK", code3: "TKL", codeNumber: 772},
+    {name: "Tonga", code2: "TO", code3: "TON", codeNumber: 776},
+    {name: "Trinidad and Tobago", code2: "TT", code3: "TTO", codeNumber: 780},
+    {name: "Tunisia", code2: "TN", code3: "TUN", codeNumber: 788},
+    {name: "Turkey", code2: "TR", code3: "TUR", codeNumber: 792},
+    {name: "Turkmenistan", code2: "TM", code3: "TKM", codeNumber: 795},
+    {name: "Turks and Caicos Islands (the)", code2: "TC", code3: "TCA", codeNumber: 796},
+    {name: "Tuvalu", code2: "TV", code3: "TUV", codeNumber: 798},
+    {name: "Uganda", code2: "UG", code3: "UGA", codeNumber: 800},
+    {name: "Ukraine", code2: "UA", code3: "UKR", codeNumber: 804},
+    {name: "United Arab Emirates (the)", code2: "AE", code3: "ARE", codeNumber: 784},
+    {name: "United Kingdom of Great Britain and Northern Ireland (the)", code2: "GB", code3: "GBR", codeNumber: 826},
+    {name: "United States Minor Outlying Islands (the)", code2: "UM", code3: "UMI", codeNumber: 581},
+    {name: "United States of America (the)", code2: "US", code3: "USA", codeNumber: 840},
+    {name: "Uruguay", code2: "UY", code3: "URY", codeNumber: 858},
+    {name: "Uzbekistan", code2: "UZ", code3: "UZB", codeNumber: 860},
+    {name: "Vanuatu", code2: "VU", code3: "VUT", codeNumber: 548},
+    {name: "Venezuela (Bolivarian Republic of)", code2: "VE", code3: "VEN", codeNumber: 862},
+    {name: "Viet Nam", code2: "VN", code3: "VNM", codeNumber: 704},
+    {name: "Virgin Islands (British)", code2: "VG", code3: "VGB", codeNumber: 92},
+    {name: "Virgin Islands (U.S.)", code2: "VI", code3: "VIR", codeNumber: 850},
+    {name: "Wallis and Futuna", code2: "WF", code3: "WLF", codeNumber: 876},
+    {name: "Western Sahara", code2: "EH", code3: "ESH", codeNumber: 732},
+    {name: "Yemen", code2: "YE", code3: "YEM", codeNumber: 887},
+    {name: "Zambia", code2: "ZM", code3: "ZMB", codeNumber: 894},
+    {name: "Zimbabwe", code2: "ZW", code3: "ZWE", codeNumber: 716},
+    {name: "Åland Islands", code2: "AX", code3: "ALA", codeNumber: 248}
+];
+
+const countryField = document.getElementById('country');
+const cityField = document.getElementById('city');
+
+for (let i = 0; i < countries.length; i++) {
+     let newOption = document.createElement('option');
+     newOption.value = countries[i].code2;
+     newOption.textContent = countries[i].name;
+     countryField.appendChild(newOption);
+};
+
+
+const getCities = async () => {
+    const response = await fetch(`http://api.geonames.org/searchJSON?country=${countryField.value}&featureClass=P&maxRows=1000&username=qwerty`);
+    const data = await response.json();
+    for (let i = 0; i < data.geonames.length; i++) {
+        let newOption = document.createElement('option');
+        newOption.value = data.geonames[i].toponymName;
+        newOption.textContent = data.geonames[i].toponymName;
+        cityField.appendChild(newOption);
+    }
+};
+
+countryField.addEventListener('input', getCities);
+
+const getCoordinates = async () => {
+    let countryCode = countryField.value;
+    let city = cityField.value;
+
+    console.log(countryCode);
+    console.log(city);
+    
+    
+//     const response = await fetch('https://nominatim.openstreetmap.org/search?q=Brno,Czechia&format=json&limit=1');
+//     const data = await response.json();
+//     console.log('position object');
+//     console.log(data[0].lat);
+//     console.log(data[0].lon);
+};
+
+
+document.querySelector('button').addEventListener('click', getCoordinates);
+
+
+const getWeather = async () => {
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=49.1922443&longitude=16.6113382&hourly=temperature_2m,precipitation,wind_speed_10m&timezone=Europe/Prague');
+    const data = await response.json();
+    console.log('weather object');
+    console.log(data);
+    console.log(data.hourly.temperature_2m);
+    console.log(data.hourly.precipitation);
+};
+
+getWeather();
+
+
+
+
+
