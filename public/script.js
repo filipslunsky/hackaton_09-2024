@@ -248,6 +248,17 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
 const countryField = document.getElementById('country');
 const cityField = document.getElementById('city');
 
+const getData = async (url) => {
+    try {
+       const response = await fetch(url);
+       const data = await response.json();
+       return data;
+    } catch (error) {
+        console.log(error);
+        return 'sorry, nothing found';
+    }
+};
+
 for (let i = 0; i < countries.length; i++) {
      let newOption = document.createElement('option');
      newOption.value = countries[i].code2;
@@ -255,10 +266,9 @@ for (let i = 0; i < countries.length; i++) {
      countryField.appendChild(newOption);
 };
 
-
 const getCities = async () => {
-    const response = await fetch(`http://api.geonames.org/searchJSON?country=${countryField.value}&featureClass=P&maxRows=1000&username=qwerty`);
-    const data = await response.json();
+    const data = await getData(`http://api.geonames.org/searchJSON?country=${countryField.value}&featureClass=P&maxRows=1000&username=qwerty`);
+    cityField.innerHTML = '<option disabled selected>then choose a city</option>';
     for (let i = 0; i < data.geonames.length; i++) {
         let newOption = document.createElement('option');
         newOption.value = data.geonames[i].toponymName;
@@ -267,47 +277,121 @@ const getCities = async () => {
     }
 };
 
-countryField.addEventListener('change', getCities);
-
 const getCoordinates = async () => {
     let countryCode = countryField.value;
     let country = countries.find(item => item.code2 === countryCode).name;
     let city = cityField.value;
-    console.log(countryCode);
-    console.log(city);
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${city},${country}&format=json&limit=1`);
-    const data = await response.json();
+    const data = await getData(`https://nominatim.openstreetmap.org/search?q=${city},${country}&format=json&limit=1`);
     const latitude = data[0].lat;
     const longitude = data[0].lon;
-    getWeather(latitude, longitude);
+    return [latitude, longitude];
 };
-
-cityField.addEventListener('change', getCoordinates);
-// document.querySelector('button').addEventListener('click', getCoordinates);
-
 
 const getWeather = async (latitude, longitude) => {
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,wind_speed_10m&timezone=Europe/Prague`);
-    const data = await response.json();
-    console.log('weather object');
-    console.log(data);
-    console.log(data.hourly.temperature_2m);
-    console.log(data.hourly.precipitation);
+    const data = await getData(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,wind_speed_10m`);
+    return data;
 };
 
-// getWeather();
+const explainWeather = (weatherCode) => {
+    if (weatherCode < 1) {
+        return 'clear sky';
+    } else if (weatherCode >= 1 && weatherCode < 2) {
+        return 'mainly clear';
+    } else if (weatherCode >= 2 && weatherCode < 3) {
+        return 'partially cloudy';
+    } else if (weatherCode >= 3 && weatherCode < 4) {
+        return 'overcast';
+    } else if (weatherCode >= 45 && weatherCode < 46) {
+        return 'fog';
+    } else if (weatherCode >= 48 && weatherCode < 49) {
+        return 'depositing rime fog';
+    } else if (weatherCode >= 51 && weatherCode < 52) {
+        return 'light drizzle';
+    } else if (weatherCode >= 53 && weatherCode < 54) {
+        return 'moderate drizzle';
+    } else if (weatherCode >= 55 && weatherCode < 56) {
+        return 'heavy drizzle';
+    } else if (weatherCode >= 56 && weatherCode < 57) {
+        return 'light freezing drizzle';
+    } else if (weatherCode >= 57 && weatherCode < 58) {
+        return 'heavy freezing drizzle';
+    } else if (weatherCode >= 61 && weatherCode < 62) {
+        return 'slight rain';
+    } else if (weatherCode >= 63 && weatherCode < 64) {
+        return 'moderate rain';
+    } else if (weatherCode >= 65 && weatherCode < 66) {
+        return 'heavy rain';
+    } else if (weatherCode >= 66 && weatherCode < 67) {
+        return 'light freezing rain';
+    } else if (weatherCode >= 67 && weatherCode < 68) {
+        return 'heavy freezing rain';
+    } else if (weatherCode >= 71 && weatherCode < 73) {
+        return 'slight snow fall';
+    } else if (weatherCode >= 73 && weatherCode < 75) {
+        return 'moderate snow fall';
+    } else if (weatherCode >= 75 && weatherCode < 77) {
+        return 'heavy snow fall';
+    } else if (weatherCode >= 77 && weatherCode < 80) {
+        return 'snow grains';
+    } else if (weatherCode >= 80 && weatherCode < 81) {
+        return 'slight rain showers';
+    } else if (weatherCode >= 81 && weatherCode < 82) {
+        return 'moderate rain showers';
+    } else if (weatherCode >= 82 && weatherCode < 85) {
+        return 'violent rain showers';
+    } else if (weatherCode >= 85 && weatherCode < 86) {
+        return 'slight snow showers';
+    } else if (weatherCode >= 86 && weatherCode < 87) {
+        return 'heavy snow showers';
+    } else if (weatherCode >= 95 && weatherCode < 96) {
+        return 'violent rain showers';
+    } else if (weatherCode >= 96 && weatherCode < 99) {
+        return 'slight snow showers';
+    } else if (weatherCode >= 99 && weatherCode < 100) {
+        return 'heavy snow showers';
+    }
+};
 
-// const now = new Date();
-// const hours = now.getHours();
-// const minutes = now.getMinutes();
-// const seconds = now.getSeconds();
+const getDataForNumberHrs = (dataArr, hrsFrom, hrsTo) => {
+    const valueArr = [];
+    for (let i = hrsFrom; i < (hrsFrom + hrsTo); i++) {
+        valueArr.push(dataArr[i]);
+    }
+    return valueArr;
+};
 
-// console.log(hours);
-// console.log(minutes);
-// console.log(seconds);
+const getWeatherForNumberHrs = (dataArr, hrsFrom, hrsTo) => {
+    const valueArr = [];
+    for (let i = hrsFrom; i < (hrsFrom + hrsTo); i++) {
+        const value = explainWeather(dataArr[i]);
+        valueArr.push(value);
+    }
+    return valueArr;
+};
 
 
+const getTotalWeatherValsForHrs = (weatherObj, hrsFrom, hrsTo) => {
+    const temperatureArr = getDataForNumberHrs(weatherObj.hourly.temperature_2m, hrsFrom, hrsTo);
+    const weatherValArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo);
+    const windSpeedValArr = getDataForNumberHrs(weatherObj.hourly.wind_speed_10m, hrsFrom, hrsTo);
+    return [temperatureArr, weatherValArr, windSpeedValArr];
+};
 
+const renderWeather = (temperatureArr, weatherValArr, windSpeedValArr, hoursFromNow) => {
+    const weatherTarget = document.getElementById('weather');
+    const windTarget = document.getElementById('wind');
+    const temperatureTarget = document.getElementById('temperature');
+    weatherTarget.innerText = weatherValArr[hoursFromNow];
+    windTarget.innerText = `${windSpeedValArr[hoursFromNow] * 10} m/s`;
+    temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
+};
 
+const displayWeather = async () => {
+    const [ latitude, longitude ] = await getCoordinates();
+    const weatherObj = await getWeather(latitude, longitude);
+    const [ temperatureArr, weatherValArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
+    renderWeather(temperatureArr, weatherValArr, windSpeedValArr, 0);
+}
 
-
+countryField.addEventListener('change', getCities);
+cityField.addEventListener('change', displayWeather);
