@@ -23,13 +23,13 @@
         </div>        
         <div class="weather__body">
             <h1 class="weather__city"></h1>
-            <div class="weather__datetime"></div>
-            <div class="weather__forecast"></div>
-            <div class="weather__icon"></div>
-            <p class="weather__temperature"></p>
+            <div class="weather__datetime" id="date"></div>
+            <div class="weather__forecast" id="weather__forecast"></div>
+            <div class="weather__icon"><img  id="weather__icon"></div>
+            <p class="weather__temperature" id="weather__temperature"></p>
             <div class="weather__minmax" id="temp">
-                <p>Min: 12°</p>
-                <p>Max: 16°</p>
+                <p id="minTemp"></p>
+                <p id="maxTemp"></p>
             </div>
         </div>
 
@@ -65,7 +65,7 @@
                 <p class="weather__humidity">60%</p>
             </div>
         </div>
-        <div class="weather__card_2" id="wind">
+        <div class="weather__card_2" id="weather__wind">
             <i class="fa-solid fa-wind"></i>
             <div>
                 <p>Wind Speed</p>

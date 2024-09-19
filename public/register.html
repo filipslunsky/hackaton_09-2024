@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="register.js" defer async></script>
+</head>
+<body>
+    <form id="registerForm">
+        <input type="text" name="firstName" id="firstName" placeholder="first name" required />
+        <br>
+        <input type="text" name="lastName" id="lastName" placeholder="last name" required />
+        <br>
+        <input type="email" name="email" id="email" placeholder="email address" required />
+        <br>
+        <input type="password" name="password" id="password" placeholder="your password" required>
+        <br>
+        <input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="repeat your password" required>
+        <span id="matchPassword"></span>
+        <br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

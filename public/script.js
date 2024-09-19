@@ -246,8 +246,8 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
 
 // setting global variables
 
-const countryField = document.getElementById('country');
-const cityField = document.getElementById('city');
+const countryField = document.getElementById('weather__country');
+const cityField = document.getElementById('weather__city');
 const degreesButton = document.getElementById('changeDegrees');
 let convertedToFahrenheit = false;
 
@@ -455,16 +455,16 @@ const celsiusToFahrenheit = (celsiusValue) => {
 
 // creating all value elements for weather for specific time
 const renderWeather = (temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature, hoursFromNow) => {
-    const weatherTarget = document.getElementById('weather');
-    const windTarget = document.getElementById('wind');
-    const weatherImgTarget = document.getElementById('weatherImg');
-    const temperatureTarget = document.getElementById('temperature');
+    const weatherTarget = document.getElementById('weather__forecast');
+    const windTarget = document.getElementById('weather__wind');
+    const weatherImgTarget = document.getElementById('weather__icon');
+    const temperatureTarget = document.getElementById('weather__temperature');
     const minTeperatureTarget = document.getElementById('minTemp');
     const maxTeperatureTarget = document.getElementById('maxTemp');
     weatherTarget.innerText = "";
     weatherImgTarget.src = "";
     windTarget.innerText = "";
-    temperatureTarget.innerHTML = "";
+    temperatureTarget.innerText = "";
     minTeperatureTarget.innerText = "";
     maxTeperatureTarget.innerText = "";
     weatherTarget.innerText = weatherValArr[hoursFromNow];
