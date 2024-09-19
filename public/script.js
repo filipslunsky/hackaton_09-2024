@@ -245,6 +245,8 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
     {name: "Åland Islands", code2: "AX", code3: "ALA", codeNumber: 248}
 ];
 
+const now = new Date();
+
 const countryField = document.getElementById('country');
 const cityField = document.getElementById('city');
 
@@ -392,9 +394,24 @@ const renderWeather = (temperatureArr, weatherValArr, windSpeedValArr, hoursFrom
 const displayWeather = async () => {
     const [ latitude, longitude ] = await getCoordinates();
     const weatherObj = await getWeather(latitude, longitude);
-    const [ temperatureArr, weatherValArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
+    const [ temperatureArr, weatherValArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, now.getHours(), 1);
     renderWeather(temperatureArr, weatherValArr, windSpeedValArr, 0);
 }
 
 countryField.addEventListener('change', getCities);
 cityField.addEventListener('change', displayWeather);
+
+const displayDateTime = () => {
+    const dateString = now.toLocaleDateString();
+    const timeString = now.toLocaleTimeString();
+    const targetDateElement = document.getElementById('date').innerText = dateString;
+    const targetTimeElement = document.getElementById('time').innerText = timeString;
+};
+
+// const displayDate = (timeZone) => {
+//     const dateString = now.toLocaleDateString('en-US', { timeZone: timeZone });
+// };
+// displayDate('America/New_York');
+
+setInterval(displayDateTime, 1000);
+
