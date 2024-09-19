@@ -10,15 +10,17 @@
 <body>
     <div class="container">
         <div class="weather__header">
-            <form class="weather__search">
-                <input type="text" placeholder="Search for a city..." class="weather__searchform">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </form> 
-            <div class="weather__units">
+            <select class="weather__country" id="weather__country">
+                <option value="">Select a country...</option>
+            </select>
+            <select class="weather__city" id="weather__city">
+                <option value="">Select a city...</option>
+            </select>
+            <div class="weather__units" id="weather__units">
                 <span class="weather_unit_celsius">°C</span>
                 <span class="weather_unit_farenheit">°F</span>
             </div>
-        </div>
+        </div>        
         <div class="weather__body">
             <h1 class="weather__city"></h1>
             <div class="weather__datetime"></div>
