@@ -2,7 +2,6 @@
 
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
@@ -23,9 +22,8 @@
 .container_2 {
     background: #171717;
     color: #fff;
-    padding: 2rem;
+    padding: 32px;
     width: 20%;
-    margin: 4rem 0;
     border-radius: 10px;
     display: inline-block;
     vertical-align: top;
@@ -61,6 +59,18 @@ input::placeholder {
     top: 10px;
     font-size: 15px;
     color: #fff;
+}
+
+.weather__country {
+    margin-right: 1rem;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.weather__city {
+    cursor: pointer;
+    align-self: flex-start;
+    margin-right: auto;
 }
 
 .weather__units {
