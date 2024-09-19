@@ -5,7 +5,6 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
     {name: "Andorra", code2: "AD", code3: "AND", codeNumber: 20},
     {name: "Angola", code2: "AO", code3: "AGO", codeNumber: 24},
     {name: "Anguilla", code2: "AI", code3: "AIA", codeNumber: 660},
-    {name: "Antarctica", code2: "AQ", code3: "ATA", codeNumber: 10},
     {name: "Antigua and Barbuda", code2: "AG", code3: "ATG", codeNumber: 28},
     {name: "Argentina", code2: "AR", code3: "ARG", codeNumber: 32},
     {name: "Armenia", code2: "AM", code3: "ARM", codeNumber: 51},
@@ -413,35 +412,68 @@ const getWeatherForNumberHrs = (dataArr, hrsFrom, hrsTo, translateFunction) => {
 
 // gathering all weather information together into arrays for specifi hour interval from the weather object
 const getTotalWeatherValsForHrs = (weatherObj, hrsFrom, hrsTo) => {
+    let startDayHrs = hrsFrom - new Date().getHours();
+    const dailyTemperatureArray = getDataForNumberHrs(weatherObj.hourly.temperature_2m, startDayHrs, 23);
+    const minTemperature = getMinValue(dailyTemperatureArray);
+    const maxTemperature = getMaxValue(dailyTemperatureArray);
     const temperatureArr = getDataForNumberHrs(weatherObj.hourly.temperature_2m, hrsFrom, hrsTo);
     const weatherValArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo, explainWeather);
     const weatherImgArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo, visualizeWeather);
     const windSpeedValArr = getDataForNumberHrs(weatherObj.hourly.wind_speed_10m, hrsFrom, hrsTo);
-    return [temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr];
+    return [temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature];
+};
+// these two functions calculate min and max temperature from the temperature arr
+const getMinValue = valueArr => {
+    let minValue = valueArr[0];
+    for (let value of valueArr) {
+        if (value < minValue) {
+            minValue = value;
+        }
+    }
+    return minValue;
 };
 
+const getMaxValue = valueArr => {
+    let maxValue = valueArr[0];
+    for (let value of valueArr) {
+        if (value > maxValue) {
+            maxValue = value;
+        }
+    }
+    return maxValue;
+};
+
+
+
 // creating all value elements for weather for specific time
-const renderWeather = (temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, hoursFromNow) => {
+const renderWeather = (temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature, hoursFromNow) => {
     const weatherTarget = document.getElementById('weather');
     const windTarget = document.getElementById('wind');
     const weatherImgTarget = document.getElementById('weatherImg');
     const temperatureTarget = document.getElementById('temperature');
-    weatherTarget.innerHTML = "";
+    const minTeperatureTarget = document.getElementById('minTemp');
+    const maxTeperatureTarget = document.getElementById('maxTemp');
+    weatherTarget.innerText = "";
     weatherImgTarget.src = "";
-    windTarget.innerHTML = "";
+    windTarget.innerText = "";
     temperatureTarget.innerHTML = "";
+    minTeperatureTarget.innerText = "";
+    maxTeperatureTarget.innerText = "";
     weatherTarget.innerText = weatherValArr[hoursFromNow];
     windTarget.innerText = `${windSpeedValArr[hoursFromNow]} m/s`;
     temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
     weatherImgTarget.src = `./img/${weatherImgArr[0]}.png`;
+    minTeperatureTarget.innerText = `min ${minTemperature} °C`;
+    maxTeperatureTarget.innerText = `max ${maxTemperature} °C`;
 };
 
 // gets triggered after user selects city
 const displayWeather = async () => {
     const [ latitude, longitude ] = await getCoordinates();
     const weatherObj = await getWeather(latitude, longitude);
-    const [ temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
-    renderWeather(temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, 0);
+    console.log(weatherObj);
+    const [ temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
+    renderWeather(temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature, 0);
 }
 
 // event listeners for select elements
