@@ -245,11 +245,12 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
     {name: "Åland Islands", code2: "AX", code3: "ALA", codeNumber: 248}
 ];
 
-const now = new Date();
+// setting global variables
 
 const countryField = document.getElementById('country');
 const cityField = document.getElementById('city');
 
+// function for getting data from API
 const getData = async (url) => {
     try {
        const response = await fetch(url);
@@ -261,6 +262,7 @@ const getData = async (url) => {
     }
 };
 
+// filling select for countries after page load
 for (let i = 0; i < countries.length; i++) {
      let newOption = document.createElement('option');
      newOption.value = countries[i].code2;
@@ -268,6 +270,8 @@ for (let i = 0; i < countries.length; i++) {
      countryField.appendChild(newOption);
 };
 
+
+// filling select for cities, gets triggered after uses chooses country
 const getCities = async () => {
     const data = await getData(`http://api.geonames.org/searchJSON?country=${countryField.value}&featureClass=P&maxRows=1000&username=qwerty`);
     cityField.innerHTML = '<option disabled selected>then choose a city</option>';
@@ -279,6 +283,7 @@ const getCities = async () => {
     }
 };
 
+// takes input from country and city select and returns location coordinates
 const getCoordinates = async () => {
     let countryCode = countryField.value;
     let country = countries.find(item => item.code2 === countryCode).name;
@@ -289,11 +294,13 @@ const getCoordinates = async () => {
     return [latitude, longitude];
 };
 
+// gets the weather object from the API
 const getWeather = async (latitude, longitude) => {
     const data = await getData(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,precipitation,wind_speed_10m`);
     return data;
 };
 
+// translates the weather code from API to words
 const explainWeather = (weatherCode) => {
     if (weatherCode < 1) {
         return 'clear sky';
@@ -354,6 +361,38 @@ const explainWeather = (weatherCode) => {
     }
 };
 
+// getting pictures for the weather
+const visualizeWeather = (weatherCode) => {
+    if (weatherCode < 2) {
+        return 'weather1';
+    } else if (weatherCode >= 2 && weatherCode < 3) {
+        return 'weather7';
+    } else if (weatherCode >= 3 && weatherCode < 4) {
+        return 'weather9';
+    } else if (weatherCode >= 45 && weatherCode < 49) {
+        return 'weather13';
+    } else if (weatherCode >= 51 && weatherCode < 56) {
+        return 'weather3';
+    } else if (weatherCode >= 56 && weatherCode < 58) {
+        return 'weather10';
+    } else if (weatherCode >= 61 && weatherCode < 66) {
+        return 'weather2';
+    } else if (weatherCode >= 66 &&  weatherCode < 68) {
+        return 'weather10';
+    } else if (weatherCode >= 71 && weatherCode < 80) {
+        return 'weather5';
+    } else if (weatherCode >= 80 && weatherCode < 85) {
+        return 'weather12';
+    } else if (weatherCode >= 85 && weatherCode < 87) {
+        return 'weather8';
+    } else if (weatherCode >= 95 && weatherCode < 96) {
+        return 'weather12';
+    } else if (weatherCode >= 96 && weatherCode < 100) {
+        return 'weather8';
+    }
+};
+
+// since the value arrays come in 168-item arrays, this function takes the values from/to hours
 const getDataForNumberHrs = (dataArr, hrsFrom, hrsTo) => {
     const valueArr = [];
     for (let i = hrsFrom; i < (hrsFrom + hrsTo); i++) {
@@ -362,56 +401,71 @@ const getDataForNumberHrs = (dataArr, hrsFrom, hrsTo) => {
     return valueArr;
 };
 
-const getWeatherForNumberHrs = (dataArr, hrsFrom, hrsTo) => {
+// converting an array of weather values to understandable values
+const getWeatherForNumberHrs = (dataArr, hrsFrom, hrsTo, translateFunction) => {
     const valueArr = [];
     for (let i = hrsFrom; i < (hrsFrom + hrsTo); i++) {
-        const value = explainWeather(dataArr[i]);
+        const value = translateFunction(dataArr[i]);
         valueArr.push(value);
     }
     return valueArr;
 };
 
-
+// gathering all weather information together into arrays for specifi hour interval from the weather object
 const getTotalWeatherValsForHrs = (weatherObj, hrsFrom, hrsTo) => {
     const temperatureArr = getDataForNumberHrs(weatherObj.hourly.temperature_2m, hrsFrom, hrsTo);
-    const weatherValArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo);
+    const weatherValArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo, explainWeather);
+    const weatherImgArr = getWeatherForNumberHrs(weatherObj.hourly.precipitation, hrsFrom, hrsTo, visualizeWeather);
     const windSpeedValArr = getDataForNumberHrs(weatherObj.hourly.wind_speed_10m, hrsFrom, hrsTo);
-    return [temperatureArr, weatherValArr, windSpeedValArr];
+    return [temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr];
 };
 
-const renderWeather = (temperatureArr, weatherValArr, windSpeedValArr, hoursFromNow) => {
+// creating all value elements for weather for specific time
+const renderWeather = (temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, hoursFromNow) => {
     const weatherTarget = document.getElementById('weather');
     const windTarget = document.getElementById('wind');
+    const weatherImgTarget = document.getElementById('weatherImg');
     const temperatureTarget = document.getElementById('temperature');
     weatherTarget.innerHTML = "";
+    weatherImgTarget.src = "";
     windTarget.innerHTML = "";
     temperatureTarget.innerHTML = "";
     weatherTarget.innerText = weatherValArr[hoursFromNow];
     windTarget.innerText = `${windSpeedValArr[hoursFromNow]} m/s`;
     temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
+    weatherImgTarget.src = `./img/${weatherImgArr[0]}.png`;
 };
 
+// gets triggered after user selects city
 const displayWeather = async () => {
     const [ latitude, longitude ] = await getCoordinates();
     const weatherObj = await getWeather(latitude, longitude);
-    const [ temperatureArr, weatherValArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, now.getHours(), 1);
-    renderWeather(temperatureArr, weatherValArr, windSpeedValArr, 0);
+    const [ temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
+    renderWeather(temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, 0);
 }
 
+// event listeners for select elements
 countryField.addEventListener('change', getCities);
 cityField.addEventListener('change', displayWeather);
 
+
+// testing functions
 const displayDateTime = () => {
+    const now = new Date();
     const dateString = now.toLocaleDateString();
     const timeString = now.toLocaleTimeString();
-    const targetDateElement = document.getElementById('date').innerText = dateString;
-    const targetTimeElement = document.getElementById('time').innerText = timeString;
+    // const targetDateElement = document.getElementById('date').innerText = dateString;
+    // const targetTimeElement = document.getElementById('time').innerText = timeString;
+    document.getElementById('date').innerText = dateString;
+    document.getElementById('time').innerText = timeString;
 };
+
+
+setInterval(displayDateTime, 1000);
+
 
 // const displayDate = (timeZone) => {
 //     const dateString = now.toLocaleDateString('en-US', { timeZone: timeZone });
 // };
 // displayDate('America/New_York');
-
-setInterval(displayDateTime, 1000);
 
