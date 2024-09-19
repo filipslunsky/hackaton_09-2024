@@ -248,6 +248,9 @@ const countries = [{name: "Afghanistan", code2: "AF", code3: "AFG", codeNumber: 
 
 const countryField = document.getElementById('country');
 const cityField = document.getElementById('city');
+const degreesButton = document.getElementById('changeDegrees');
+let convertedToFahrenheit = false;
+
 
 // function for getting data from API
 const getData = async (url) => {
@@ -443,6 +446,11 @@ const getMaxValue = valueArr => {
     return maxValue;
 };
 
+const celsiusToFahrenheit = (celsiusValue) => {
+    const fahrenheitValue = celsiusValue * 9 / 5 + 32;
+    const roundedfahrenheitValue = Math.round(fahrenheitValue * 10) / 10;
+    return roundedfahrenheitValue;
+};
 
 
 // creating all value elements for weather for specific time
@@ -461,25 +469,35 @@ const renderWeather = (temperatureArr, weatherValArr, weatherImgArr, windSpeedVa
     maxTeperatureTarget.innerText = "";
     weatherTarget.innerText = weatherValArr[hoursFromNow];
     windTarget.innerText = `${windSpeedValArr[hoursFromNow]} m/s`;
-    temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
     weatherImgTarget.src = `./img/${weatherImgArr[0]}.png`;
-    minTeperatureTarget.innerText = `min ${minTemperature} °C`;
-    maxTeperatureTarget.innerText = `max ${maxTemperature} °C`;
+    if (convertedToFahrenheit) {
+        temperatureTarget.innerText = `${celsiusToFahrenheit(temperatureArr[hoursFromNow])} °F`;
+        minTeperatureTarget.innerText = `min ${celsiusToFahrenheit(minTemperature)} °F`;
+        maxTeperatureTarget.innerText = `max ${celsiusToFahrenheit(maxTemperature)} °F`;
+    } else {
+        temperatureTarget.innerText = `${temperatureArr[hoursFromNow]} °C`;
+        minTeperatureTarget.innerText = `min ${minTemperature} °C`;
+        maxTeperatureTarget.innerText = `max ${maxTemperature} °C`;
+    };
 };
 
 // gets triggered after user selects city
 const displayWeather = async () => {
     const [ latitude, longitude ] = await getCoordinates();
     const weatherObj = await getWeather(latitude, longitude);
-    console.log(weatherObj);
     const [ temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature ] = getTotalWeatherValsForHrs(weatherObj, new Date().getHours(), 1);
     renderWeather(temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature, 0);
 }
 
+const toggleFahrenheitCelsius = () => {
+    convertedToFahrenheit = !convertedToFahrenheit;
+};
+
 // event listeners for select elements
 countryField.addEventListener('change', getCities);
 cityField.addEventListener('change', displayWeather);
-
+degreesButton.addEventListener('click', toggleFahrenheitCelsius);
+degreesButton.addEventListener('click', displayWeather);
 
 // testing functions
 const displayDateTime = () => {
