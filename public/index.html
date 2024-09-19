@@ -15,71 +15,61 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </form> 
             <div class="weather__units">
-                <span class="weather_unit_celsius">&#176C</span>
-                <span class="weather_unit_farenheit">&#176F</span>
+                <span class="weather_unit_celsius">°C</span>
+                <span class="weather_unit_farenheit">°F</span>
             </div>
         </div>
         <div class="weather__body">
             <h1 class="weather__city"></h1>
-            <div class="weather__datetime">
-            </div>
+            <div class="weather__datetime"></div>
             <div class="weather__forecast"></div>
-            <div class="weather__icon">
-            </div>
-            <p class="weather__temperature">
-            </p>
-            <div class="weather__minmax">
-                <p>Min: 12&#176</p>
-                <p>Max: 16&#176</p>
+            <div class="weather__icon"></div>
+            <p class="weather__temperature"></p>
+            <div class="weather__minmax" id="temp">
+                <p>Min: 12°</p>
+                <p>Max: 16°</p>
             </div>
         </div>
 
         <div class="weather__info">
-            <div class="weather__card">
-                <i class="fa-solid fa-temperature-full"></i>
+            <div class="weather__card" id="day1">
+                <i class="fa-solid fa-calendar-day"></i>
                 <div>
-                    <p>Real Feel</p>
-                    <p class="weather__realfeel">18&#176</p>
+                    <p>Day 1</p>
+                    <p class="weather__day1">18°</p>
                 </div>
             </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-droplet"></i>
+            <div class="weather__card" id="day2">
+                <i class="fa-solid fa-calendar-day"></i>
                 <div>
-                    <p>Humidity</p>
-                    <p class="weather__humidity">18&#176</p>
+                    <p>Day 2</p>
+                    <p class="weather__day2">20°</p>
                 </div>
             </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-wind"></i>
+            <div class="weather__card" id="day3">
+                <i class="fa-solid fa-calendar-day"></i>
                 <div>
-                    <p>Wind</p>
-                    <p class="weather__wind">18&#176</p>
-                </div>
-            </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-gauge-high"></i>
-                <div>
-                    <p>Pressure</p>
-                    <p class="weather__pressure">18&#176</p>
+                    <p>Day 3</p>
+                    <p class="weather__day3">22°</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class="container_2">
-        <div class="weather__card_2">
-            <h1 class="weather__city_2"></h1>
-            <div class="weather__datetime_2">
-            </div>
-            <div class="weather__forecast_2"></div>
-            <div class="weather__icon_2">
-            </div>
-            <p class="weather__temperature_2">
-            </p>
-            <div class="weather__minmax_2">
-                <p>Min: 12&#176</p>
-                <p>Max: 16&#176</p>
+    <div class="container_2">
+        <div class="weather__card_2" id="humidity">
+            <i class="fa-solid fa-droplet"></i>
+            <div>
+                <p>Humidity</p>
+                <p class="weather__humidity">60%</p>
             </div>
         </div>
-    </div> -->
+        <div class="weather__card_2" id="wind">
+            <i class="fa-solid fa-wind"></i>
+            <div>
+                <p>Wind Speed</p>
+                <p class="weather__wind">15 km/h</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
