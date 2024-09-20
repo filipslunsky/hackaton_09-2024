@@ -1,5 +1,6 @@
 const express = require('express');
 const citiesRouter = require('./routes/citiesRouter.js');
+const usersRouter = require('./routes/users.router.js');
 
 const app = express();
 
@@ -12,3 +13,5 @@ app.listen(PORT, () => {
 app.use(express.json());
 
 app.use('/cities', citiesRouter);
+
+app.use('/users', usersRouter);

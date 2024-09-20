@@ -44,7 +44,7 @@ const addNewCityForUser = async (req, res) => {
 const deleteFavoriteCityByEmail = async (req, res) => {
     const  { email, city, country} = req.body;
     try {
-        const data = await _deleteFavoriteCityByEmail(email, city, country);
+        const data = await _deleteFavoriteCityByEmail(email);
         if (data.success) {
             res.status(200).json(data);
         } else {
