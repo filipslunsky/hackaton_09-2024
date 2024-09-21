@@ -28,12 +28,14 @@
     display: inline-block;
     vertical-align: top;
     margin-top: 10%;
+    margin-right: 5%;
 }
 
 .weather__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
 input {
@@ -43,6 +45,11 @@ input {
     color: #fff;
     padding: 0.5rem 2.5rem;
     border-radius: 5px;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    width: 100%;
+    max-width: 400px;
+    transition: 0.4s;
 }
 
 input::placeholder {
@@ -51,6 +58,10 @@ input::placeholder {
 
 .weather__search {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .weather__search i {
@@ -71,6 +82,7 @@ input::placeholder {
     cursor: pointer;
     align-self: flex-start;
     margin-right: auto;
+    margin-bottom: 1rem;
 }
 
 .weather__units {
