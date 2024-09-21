@@ -27,7 +27,7 @@ const _addNewUser = async (firstName, lastName, email, hashedPassword) => {
     }
 };
 
-const _getUserPasswordByEmail = async (email) => {
+const _loginUser = async (email) => {
     try {
         return await db.transaction(async (trx) => {
             const userExists = await trx('users')
@@ -36,8 +36,8 @@ const _getUserPasswordByEmail = async (email) => {
             if (!userExists) {
                 return { success: false, password: null, message: 'User does not exist' };
             }
-            const user = await trx('users').select('password').where({ email }).first();
-            return { success: true, password: user.password };
+            const user = await trx('users').select('first_name','last_name', 'email', 'password').where({ email }).first();
+            return { success: true, firstName: user.first_name, lastName: user.last_name, email: user.email, password: user.password };
         });
     } catch (error) {
         console.error('Transaction error:', error);
@@ -85,7 +85,7 @@ const _deleteUser = async (email) => {
 module.exports = {
     _getAllUsers,
     _addNewUser,
-    _getUserPasswordByEmail,
+    _loginUser,
     _updateUser,
     _deleteUser
 };

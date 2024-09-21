@@ -1,11 +1,18 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const {
     _getAllUsers,
     _addNewUser,
-    _getUserPasswordByEmail,
+    _loginUser,
     _updateUser,
     _deleteUser
 } = require('../models/usersModel.js');
+
+
+const JWTSECRET = process.env.JWTSECRET;
 
 const getAllUsers = async (req, res) => {
     try {
@@ -33,16 +40,21 @@ const addNewUser = async (req, res) => {
     }
 };
 
-const getUserPasswordByEmail = async (req, res) => {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const data = await _getUserPasswordByEmail(email);
+        const data = await _loginUser(email);
         if (data.success) {
             const match = await bcrypt.compare(password, data.password);
             if (match) {
-                res.json({passwordMatch: true})
+                const token = jwt.sign(
+                    { userId: data.id, email: data.email },
+                    JWTSECRET,
+                    { expiresIn: '1h' }
+                );
+                res.json({success: true, passwordMatch: true, firstName: data.firstName, lastName: data.lastName, email: data.email, token});
             } else {
-                res.json({passwordMatch: false})
+                res.json({success: true, passwordMatch: false})
             }
         } else {
             res.status(400).json(data);
@@ -89,7 +101,7 @@ const deleteUser = async (req, res) => {
 module.exports = {
     getAllUsers,
     addNewUser,
-    getUserPasswordByEmail,
+    loginUser,
     updateUser,
     deleteUser
 };

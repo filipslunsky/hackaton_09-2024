@@ -2,7 +2,7 @@ const express = require('express');
 const {
     getAllUsers,
     addNewUser,
-    getUserPasswordByEmail,
+    loginUser,
     updateUser,
     deleteUser
 } = require('../controllers/usersController.js');
@@ -13,7 +13,7 @@ usersRouter.get('/', getAllUsers);
 
 usersRouter.post('/register', addNewUser);
 
-usersRouter.post('/login', getUserPasswordByEmail);
+usersRouter.post('/login', loginUser);
 
 usersRouter.put('/', updateUser);
 
