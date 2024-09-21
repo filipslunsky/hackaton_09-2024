@@ -1,5 +1,4 @@
 const dotenv = require('dotenv');
-dotenv.config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -11,6 +10,7 @@ const {
     _deleteUser
 } = require('../models/usersModel.js');
 
+dotenv.config();
 
 const JWTSECRET = process.env.JWTSECRET;
 

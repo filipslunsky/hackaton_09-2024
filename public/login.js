@@ -21,7 +21,11 @@ document.getElementById('login-button').addEventListener('click', async (e) => {
         
         if (data.success && data.passwordMatch) {
             sessionStorage.setItem('token', data.token);
+            sessionStorage.setItem('firstName', data.firstName);
+            sessionStorage.setItem('lastName', data.lastName);
+            sessionStorage.setItem('email', data.email);
             console.log('Login successful:', data);
+            window.location.href = 'test-login.html';
         } else if (data.success && !data.passwordMatch) {
             console.log('Login failed: wrong password');
         } else {
@@ -30,7 +34,26 @@ document.getElementById('login-button').addEventListener('click', async (e) => {
     } catch (error) {
         console.log(error);
     }
-
 });
 
+const getCities = async () => {
+    const token = sessionStorage.getItem('token');
+    const url = 'http://127.0.0.1:3200/cities';
 
+    const options = {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: 'john@skynet.com'})
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+    } catch (error) {
+    }
+};
+
+document.getElementById('test').addEventListener('click', getCities);

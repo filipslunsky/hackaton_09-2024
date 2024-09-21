@@ -6,14 +6,16 @@ const {
     deleteFavoriteCityByEmail
 } = require('../controllers/citiesController.js');
 
+const { authenticateToken } = require('../middleware/usersMiddleware.js');
+
 const citiesRouter = express.Router();
 
 citiesRouter.get('/', getAllCities);
 
-citiesRouter.post('/', getCitiesByUserEmail);
+citiesRouter.post('/', authenticateToken, getCitiesByUserEmail);
 
-citiesRouter.post('/user', addNewCityForUser);
+citiesRouter.post('/user', authenticateToken, addNewCityForUser);
 
-citiesRouter.delete('/user', deleteFavoriteCityByEmail);
+citiesRouter.delete('/user', authenticateToken, deleteFavoriteCityByEmail);
 
 module.exports = citiesRouter;
