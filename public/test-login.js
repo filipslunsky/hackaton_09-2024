@@ -1,4 +1,3 @@
-console.log('test connection ok');
 document.addEventListener('DOMContentLoaded', () => {
     const token = sessionStorage.getItem('token');
     

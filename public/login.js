@@ -25,7 +25,7 @@ document.getElementById('login-button').addEventListener('click', async (e) => {
             sessionStorage.setItem('lastName', data.lastName);
             sessionStorage.setItem('email', data.email);
             console.log('Login successful:', data);
-            window.location.href = 'test-login.html';
+            window.location.href = 'index.html';
         } else if (data.success && !data.passwordMatch) {
             console.log('Login failed: wrong password');
         } else {
@@ -36,24 +36,23 @@ document.getElementById('login-button').addEventListener('click', async (e) => {
     }
 });
 
-const getCities = async () => {
-    const token = sessionStorage.getItem('token');
-    const url = 'http://127.0.0.1:3200/cities';
+// const getCities = async () => {
+//     const token = sessionStorage.getItem('token');
+//     const url = 'http://127.0.0.1:3200/cities';
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email: 'john@skynet.com'})
-    };
+//     const options = {
+//         method: 'POST',
+//         headers: {
+//             'Authorization': `Bearer ${token}`,
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({email: 'john@skynet.com'})
+//     };
 
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-    } catch (error) {
-    }
-};
+//     try {
+//         const response = await fetch(url, options);
+//         const data = await response.json();
+//     } catch (error) {
+//     }
+// };
 
-document.getElementById('test').addEventListener('click', getCities);

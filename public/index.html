@@ -4,63 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <script src="script.js" defer async></script>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer async></script>
 </head>
 <body>
-    <div class="container">
-        <div class="weather__header">
-            <select class="weather__country" id="weather__country">
-                <option value="">Select a country...</option>
+    <header>
+        <form id="location">
+            <select name="country" id="userCountry">
+                <option disabled selected>first choose a country</option>
             </select>
-            <select class="weather__city" id="weather__city">
-                <option value="">Select a city...</option>
+            <select name="city" id="userCity">
+                <option disabled selected>then choose a city</option>
             </select>
-            <div class="weather__units" id="weather__units">
-                <span class="weather_unit_celsius">°C</span>
-                <span class="weather_unit_farenheit">°F</span>
-            </div>
-        </div>        
-        <div class="weather__body">
-            <h1 class="weather__city"></h1>
-            <div class="weather__datetime" id="date"></div>
-            <div class="weather__forecast" id="weather__forecast"></div>
-            <div class="weather__icon"><img  id="weather__icon"></div>
-            <p class="weather__temperature" id="weather__temperature"></p>
-            <div class="weather__minmax" id="temp">
-                <p id="minTemp"></p>
-                <p id="maxTemp"></p>
-            </div>
-        </div>
-        <div class="weather__card_2" id="weather__wind"></div>
-            <i class="fa-solid fa-wind"></i>
-        </div>
+            <p id="date"></p>
+            <p id="time"></p>
+            <div id="logMenu"><a href="login.html">Login</a></div>
+        </form>
+    </header>
+    <div class="main-container" id="weatherField">
         
     </div>
-    <div class="container_2">
-        <div class="weather__info">
-            <div class="weather__card" id="day1">
-                <i class="fa-solid fa-calendar-day"></i>
-                <div>
-                    <p>Day 1</p>
-                    <p class="weather__day1">18°</p>
-                </div>
-            </div>
-            <div class="weather__card" id="day2">
-                <i class="fa-solid fa-calendar-day"></i>
-                <div>
-                    <p>Day 2</p>
-                    <p class="weather__day2">20°</p>
-                </div>
-            </div>
-            <div class="weather__card" id="day3">
-                <i class="fa-solid fa-calendar-day"></i>
-                <div>
-                    <p>Day 3</p>
-                    <p class="weather__day3">22°</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </body>
 </html>
