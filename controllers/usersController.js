@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const {
-    _getAllUsers,
     _addNewUser,
     _loginUser,
     _updateUser,
@@ -13,16 +12,6 @@ const {
 dotenv.config();
 
 const JWTSECRET = process.env.JWTSECRET;
-
-const getAllUsers = async (req, res) => {
-    try {
-        const data = await _getAllUsers();
-        res.json(data);
-    } catch (error) {
-        console.log('Error:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
 
 const addNewUser = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;

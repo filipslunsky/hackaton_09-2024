@@ -1,6 +1,5 @@
 const express = require('express');
 const {
-    getAllCities,
     getCitiesByUserEmail,
     addNewCityForUser,
     deleteFavoriteCityByEmail
@@ -9,8 +8,6 @@ const {
 const { authenticateToken } = require('../middleware/usersMiddleware.js');
 
 const citiesRouter = express.Router();
-
-citiesRouter.get('/', getAllCities);
 
 citiesRouter.post('/', authenticateToken, getCitiesByUserEmail);
 

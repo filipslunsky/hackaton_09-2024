@@ -1,19 +1,8 @@
 const {
-    _getAllCities,
-    // _getCityByCityNameAndCountry,
     _getCitiesByUserEmail,
     _addNewCityForUser,
     _deleteFavoriteCityByEmail
 } = require('../models/citiesModel');
-
-const getAllCities = async (req, res) => {
-    try {
-        const data = await _getAllCities();
-        res.json(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 const getCitiesByUserEmail = async (req, res) => {
     const { email } = req.body;
@@ -58,7 +47,6 @@ const deleteFavoriteCityByEmail = async (req, res) => {
 
 
 module.exports = {
-    getAllCities,
     getCitiesByUserEmail,
     addNewCityForUser,
     deleteFavoriteCityByEmail

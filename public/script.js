@@ -529,6 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastName = sessionStorage.getItem('lastName');
         const email = sessionStorage.getItem('email');
 
+        
         // functions for data transfer for logged in users
         
         const getCities = async () => {

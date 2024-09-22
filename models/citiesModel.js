@@ -1,13 +1,5 @@
 const { db } = require('../config/data.js');
 
-const _getAllCities = () => {
-    return db('cities').select('id', 'country', 'city');
-};
-
-// const _getCityByCityNameAndCountry = (city, country) => {
-//     return db('cities').select('id', 'country', 'city').where({city, country});
-// };
-
 const _getCitiesByUserEmail = email => {
     return db('cities').select('cities.city', 'cities.country', 'users.email').join('favorites', 'cities.id', '=', 'favorites.city_id').join('users', 'users.id', '=', 'favorites.user_id'). where('users.email', email);
 };
@@ -77,8 +69,6 @@ const _deleteFavoriteCityByEmail = async (email, city, country) => {
 
 
 module.exports = {
-    _getAllCities,
-    // _getCityByCityNameAndCountry,
     _getCitiesByUserEmail,
     _addNewCityForUser,
     _deleteFavoriteCityByEmail

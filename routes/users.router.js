@@ -1,6 +1,5 @@
 const express = require('express');
 const {
-    getAllUsers,
     addNewUser,
     loginUser,
     updateUser,
@@ -10,8 +9,6 @@ const {
 const { authenticateToken } = require('../middleware/usersMiddleware.js');
 
 const usersRouter = express.Router();
-
-usersRouter.get('/', getAllUsers);
 
 usersRouter.post('/register', addNewUser);
 

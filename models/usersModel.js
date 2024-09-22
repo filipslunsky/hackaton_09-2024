@@ -1,9 +1,5 @@
 const { db } = require('../config/data.js');
 
-const _getAllUsers = () => {
-    return db('users').select('first_name', 'last_name', 'email');
-};
-
 const _addNewUser = async (firstName, lastName, email, hashedPassword) => {
     try {
         return await db.transaction(async (trx) => {
@@ -83,7 +79,6 @@ const _deleteUser = async (email) => {
 
 
 module.exports = {
-    _getAllUsers,
     _addNewUser,
     _loginUser,
     _updateUser,
