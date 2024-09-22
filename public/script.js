@@ -456,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return maxValue;
     };
     
+
     // creating html with dynmically inserted values
     const renderWeatherDiv = (city, country, temperatureArr, weatherValArr, weatherImgArr, windSpeedValArr, minTemperature, maxTemperature, hoursFromNow) => {
         let html = `
@@ -475,7 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="weather-box">
                         <p class="weather-detail-text">wind speed: ${windSpeedValArr[hoursFromNow]} m/s</p>
                     </div>
-                    
             </div>`;
         return html;
         };
@@ -512,7 +512,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // event listeners for select elements
     countryField.addEventListener('change', getCities);
     cityField.addEventListener('change', displaySearchedWeather);
-    
     
     // time displaying function
     const displayDateTime = () => {
@@ -564,10 +563,68 @@ document.addEventListener('DOMContentLoaded', () => {
             location.reload(true);
         });
 
+        document.getElementById('save').addEventListener('click', async () => {
+            const city = cityField.value;
+            const country = getCountryFromCode(countryField.value);
+            const token = sessionStorage.getItem('token');
+            const url = 'http://127.0.0.1:3200/cities/user';
+            console.log(country);
+            console.log(city);
+            
+            
+        
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, city, country})
+            };
+        
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                console.log(data);
+
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+        document.getElementById('remove').addEventListener('click', async () => {
+            const city = cityField.value;
+            const country = getCountryFromCode(countryField.value);
+            const token = sessionStorage.getItem('token');
+            const url = 'http://127.0.0.1:3200/cities/user';
+            console.log(country);
+            console.log(city);
+            
+              
+            const options = {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, city, country})
+            };
+        
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                console.log(data);
+
+            } catch (error) {
+                console.log(error);
+            }
+        });
 
     } else {
         console.log('user not logged in');
         const countryCityArr = [{country: 'Great Britain', city: 'London'}, {country: 'Japan', city: 'Tokyo'}, {country: 'United States of America', city: 'Los Angeles'}];
+        document.getElementById('save').style.display = 'none';
+        document.getElementById('remove').style.display = 'none';
         initiateWeatherContent(countryCityArr);
     }
 });

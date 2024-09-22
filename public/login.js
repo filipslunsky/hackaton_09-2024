@@ -36,23 +36,5 @@ document.getElementById('login-button').addEventListener('click', async (e) => {
     }
 });
 
-// const getCities = async () => {
-//     const token = sessionStorage.getItem('token');
-//     const url = 'http://127.0.0.1:3200/cities';
 
-//     const options = {
-//         method: 'POST',
-//         headers: {
-//             'Authorization': `Bearer ${token}`,
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({email: 'john@skynet.com'})
-//     };
-
-//     try {
-//         const response = await fetch(url, options);
-//         const data = await response.json();
-//     } catch (error) {
-//     }
-// };
 

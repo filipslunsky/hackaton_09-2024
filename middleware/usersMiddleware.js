@@ -8,8 +8,8 @@ const JWTSECRET = process.env.JWTSECRET;
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    console.log('Auth Header:', authHeader);
-    console.log('Token:', token);
+    // console.log('Auth Header:', authHeader);
+    // console.log('Token:', token);
 
     if (token == null) {
         return res.status(401).json({ message: 'No token, authorization denied' });
