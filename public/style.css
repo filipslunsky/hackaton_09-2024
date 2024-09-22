@@ -1,7 +1,5 @@
-header {
-    display: flex;
-    flex-direction: row;
-
+body {
+    background-color: rgb(155, 202, 213);
 }
 
 #time, #date, #logMenu {
@@ -16,8 +14,19 @@ header {
 
 .weather-container-large {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 400px;
+    height: 200px;
+    margin-top: 20px;
+    background-color: blanchedalmond;
+    border: 3px solid rgb(43, 147, 203);
+    border-radius: 20px;
+}
+
+h1 {
+    font-size: 20px;
+    margin-left: 50px;
 }
 
 .weather-detail {
@@ -26,9 +35,18 @@ header {
 }
 
 .weather-box {
-    width: 200px;
+    width: 150px;
+    margin-left: 30px;
 }
 
 #logout {
     cursor: pointer;
+}
+
+img {
+    height: 55px;
+}
+
+.min-max-temp {
+    margin-left: 45px;
 }

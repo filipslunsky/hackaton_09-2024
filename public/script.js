@@ -564,7 +564,8 @@ document.addEventListener('DOMContentLoaded', () => {
             location.reload(true);
         });
 
-        document.getElementById('save').addEventListener('click', async () => {
+        document.getElementById('save').addEventListener('click', async (e) => {
+            e.preventDefault();
             const city = cityField.value;
             const country = getCountryFromCode(countryField.value);
             const token = sessionStorage.getItem('token');
@@ -593,7 +594,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        document.getElementById('remove').addEventListener('click', async () => {
+        document.getElementById('remove').addEventListener('click', async (e) => {
+            e.preventDefault();
             const city = cityField.value;
             const country = getCountryFromCode(countryField.value);
             const token = sessionStorage.getItem('token');
